@@ -18,7 +18,7 @@ const btnSaveContact = document.querySelector('.btnSaveContact');
 const header__top__logo__burger = document.querySelector('.header__top__logo__burger')
 const windowCreateContactLibelle = document.querySelector('.windowCreateContact__libelle')
 const tabContact = [] 
-
+const tabLibelles = [] 
 
 function visibilityBtnCreateAction() {
     const creatAction = document.querySelector('.creatAction');
@@ -96,6 +96,10 @@ function createLibelle() {
     
     const libelleId = crypto.randomUUID();
     const libelles = document.querySelector('.header__left__libelles');
+    const libelleItemName = libelleName.value
+    const tabLibellesItem = {libelleId,libelleItemName}
+
+    tabLibelles.push(tabLibellesItem)
 
     const svg = document.createElement('img');
     svg.setAttribute('src','./assets/images/libelle.svg');
@@ -129,6 +133,10 @@ function createLibelle() {
     libelleItem.append(svg, partie2, partie2__icon1, partie2__icon2);
     libelles.appendChild(libelleItem);
     hiddenModalLibelles()
+}
+
+function name(params) {
+    
 }
 
 
@@ -233,6 +241,24 @@ function createContact() {
 //     }
 // }
 
+
+{/* <div class="manageLibelles absolute displayNone">
+    <p class="manageLibelles__title">Gérer les libellés</p>
+    <div class="manageLibelles__list">
+        <div class="manageLibelles__item flex alignItemCenter cursorPointer">
+            <img src="./assets/images/material-Icon/label-transparent-icon.svg" alt="label-icon">
+            <span>Bureau</span>
+        </div>
+        <div  class="manageLibelles__item flex alignItemCenter cursorPointer">
+            <img src="./assets/images/material-Icon/label-transparent-icon.svg" alt="label-icon">
+            <span>Eglise</span>
+        </div>
+    </div>
+    <div class="manageLibelles__create cursorPointer">
+        <img src="./assets/images/material-Icon/plus-icon.svg" alt="plus-icon">
+        <span>Créer un libellé</span>
+    </div>
+</div> */}
 
 
 ContainerCreateBtn.addEventListener('click',visibilityBtnCreateAction);
