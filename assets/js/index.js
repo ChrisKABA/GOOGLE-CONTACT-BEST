@@ -16,7 +16,8 @@ const modal__deleteLibelle = document.querySelector('.modal__deleteLibelle');
 const modal__deleteLibelle__btnAction = document.querySelector('.modal__deleteLibelle__btnAction');
 const btnSaveContact = document.querySelector('.btnSaveContact');
 const header__top__logo__burger = document.querySelector('.header__top__logo__burger')
-const tabContact = []
+const windowCreateContactLibelle = document.querySelector('.windowCreateContact__libelle')
+const tabContact = [] 
 
 
 function visibilityBtnCreateAction() {
@@ -26,6 +27,15 @@ function visibilityBtnCreateAction() {
         return
     }
     creatAction.style.display = "block"
+}
+
+function visibilityManageLibelles() {
+    const manageLibelles = document.querySelector('.manageLibelles')
+    if (manageLibelles.style.display === "block") {
+        manageLibelles.style.display= "none";
+        return
+    }
+    manageLibelles.style.display = "block"
 }
 
 
@@ -226,6 +236,7 @@ function createContact() {
 
 
 ContainerCreateBtn.addEventListener('click',visibilityBtnCreateAction);
+windowCreateContactLibelle.addEventListener('click',visibilityManageLibelles)
 oneContact.addEventListener('click',OpenWindowsCreatContact);
 contactBtn.addEventListener('click',OpenWindowsListContact);
 btnPlusLibelles.addEventListener('click',showModalAddLibelles);

@@ -353,7 +353,7 @@ body{
   color: darkblue;
   font-weight:900;
   font-size: 18px;
-  margin-bottom: 20px;
+  margin-bottom: 2px;
 }
 
 .windowCreateContact__libelle span{
@@ -366,6 +366,10 @@ body{
 .windowCreateContact__title__fieldsAny{
   display: flex;
   width: 100%;
+}
+
+.windowCreateContact__title{
+  margin-top: 30px;
 }
 
 .windowCreateContact__title__fieldsMore{
@@ -489,17 +493,19 @@ body{
   background-color: rgba(0, 255, 255, 0.281);
 }
 
-
 .manageLibelles{
   background-color: rgb(215, 220, 240);
   box-shadow: rgba(19, 19, 19, 0.358) 1px 1px 2px;
   width: max-content;
   border-radius: 5px;
   padding-top: 15px;
-  width: 200px;
+  width: 240px;
+  padding-bottom: 10px;
+  z-index: 1;
 }
 
 .manageLibelles__create{
+  padding: 15px 0px 10px 25px;
   margin-top: 10px;
 }
 
@@ -508,8 +514,11 @@ body{
 }
 
 .manageLibelles__item{
-  margin-top: 15px;
-  padding-left: 15px;
+  padding: 10px 10px 10px 25px;
+}
+
+.manageLibelles__item:hover,.manageLibelles__create:hover{
+  background-color: grey;
 }
 
 .manageLibelles__item img{
@@ -517,6 +526,6 @@ body{
 }
 
 .manageLibelles__list{
-  padding-left: 10px;
   border-bottom: 1px solid gray;
+  margin-top: 10px;
 }
