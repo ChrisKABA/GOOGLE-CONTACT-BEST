@@ -109,60 +109,64 @@ function createLibelle() {
 
 function addLibellesHeaderLeft() {
     const libelles = document.querySelector('.header__left__libelles');
-    for (let index = 0; index < tabLibelles.length; index++) {
-        const svg = document.createElement('img');
-        svg.setAttribute('src','./assets/images/libelle.svg');
-        svg.setAttribute('alt', "libellé icon");
+    const containerAlibelles = document.querySelector('.containerAlibelles');
+    const libelleId = tabLibelles.at(-1).libelleId;
+
+
+    const svg = document.createElement('img');
+    svg.setAttribute('src','./assets/images/libelle.svg');
+    svg.setAttribute('alt', "libellé icon");
+
+
+    const span = document.createElement('span');
+    span.textContent = tabLibelles.at(-1).libelleItemName;
+
+    const partie2 = document.createElement('div')
+    partie2.classList.add("header__left__libelle__item__partie2", "flex", "spaceBetween", "alignItemCenter");
+
+    const partie2__icon1 = createIcon('./assets/images/material-Icon/edit-icon.svg',function () {
+        renameLibellePart1(libelleId);
+    });
+    partie2__icon1.classList.add('visibilityHidden','header__left__libelle__item__partie2__icon');
+
+    const partie2__icon2 = createIcon('./assets/images/material-Icon/delete-icon.svg',function () {
+        deleteLibellePart1(libelleId);
+    });
+    partie2__icon2.classList.add('visibilityHidden','header__left__libelle__item__partie2__icon')
+    partie2__icon2.setAttribute('alt', "renommer icon");
+
     
-    
-        const span = document.createElement('span');
-        span.textContent = tabLibelles[index].libelleItemName;
-    
-        const partie2 = document.createElement('div')
-        partie2.classList.add("header__left__libelle__item__partie2", "flex", "spaceBetween", "alignItemCenter");
-    
-        const partie2__icon1 = createIcon('./assets/images/material-Icon/edit-icon.svg',function () {
-            renameLibellePart1(tabLibelles[index].libelleId);
-        });
-        partie2__icon1.classList.add('visibilityHidden','header__left__libelle__item__partie2__icon');
-    
-        const partie2__icon2 = createIcon('./assets/images/material-Icon/delete-icon.svg',function () {
-            deleteLibellePart1(tabLibelles[index].libelleId);
-        });
-        partie2__icon2.classList.add('visibilityHidden','header__left__libelle__item__partie2__icon')
-        partie2__icon2.setAttribute('alt', "renommer icon");
-    
-        
-        const libelleItem = document.createElement('div');
-        libelleItem.classList.add('header__left__libelle__item','flex', 'alignItemCenter');
-        libelleItem.setAttribute('id',tabLibelles[index].libelleId);
-    
-    
-        partie2.appendChild(span);
-        libelleItem.append(svg, partie2, partie2__icon1, partie2__icon2);
-        libelles.appendChild(libelleItem);
-    }
+    const libelleItem = document.createElement('div');
+    libelleItem.classList.add('header__left__libelle__item','flex', 'alignItemCenter');
+    libelleItem.setAttribute('id',tabLibelles.at(-1).libelleId);
+
+
+    partie2.appendChild(span);
+    libelleItem.append(svg, partie2, partie2__icon1, partie2__icon2);
+    containerAlibelles.appendChild(libelleItem);
     
 }
 
 
 
+
 function addLibellesManageLibelles() {
     const manageLibelles__list = document.querySelector('.manageLibelles__list');
-    for (let index = 0; index < tabLibelles.length; index++) {
-        const span = document.createElement('span');
-        span.textContent = tabLibelles[index].libelleItemName;
+    
+    const span = document.createElement('span');
+    span.textContent = tabLibelles.at(-1).libelleItemName;
 
-        const img = document.createElement('img');
-        img.setAttribute('src','./assets/images/material-Icon/label-transparent-icon.svg');
-        img.setAttribute('alt', "label-icon");
+    const img = document.createElement('img');
+    img.setAttribute('src','./assets/images/material-Icon/label-transparent-icon.svg');
+    img.setAttribute('alt', "label-icon");
 
-        divLibelle = document.createElement('div');
-        divLibelle.classList.add('manageLibelles__item','flex','alignItemCenter','cursorPointer');
+    divLibelle = document.createElement('div');
+    divLibelle.classList.add('manageLibelles__item','flex','alignItemCenter','cursorPointer');
+    divLibelle.setAttribute('id', tabLibelles.at(-1).libelleId);
 
-        divLibelle.append(img,span);
-        manageLibelles__list.appendChild(divLibelle);
-    }
+    divLibelle.append(img,span);
+    manageLibelles__list.appendChild(divLibelle);
+
     
 }
 
@@ -178,8 +182,15 @@ function renameLibellePart1(libelleId) {
 function renameLibellePart2(libelleId) {
     const libelleItem = document.getElementById(libelleId);
     const libelleOldName = libelleItem.querySelector('span');
-    const newName = document.getElementById('oldLibelle')
+    const newName = document.getElementById('oldLibelle');
+
+    const indexRename =  tabLibelles.findIndex(function (libelle) {
+        return libelle.libelleId === libelleId
+    })
+
+    tabLibelles[indexRename].libelleItemName = newName.value
     libelleOldName.textContent = newName.value
+
     hiddenModalLibelles()  
 }
 
