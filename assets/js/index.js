@@ -8,10 +8,11 @@ let btnPlusLibelles = document.querySelector('.header__left__libelles__title__bt
 let windowDark = document.querySelector('.windowDark');
 let btnNothingLibelles = document.querySelectorAll('.modal__libelle__btnAction__nothing');
 let saveLibelle = document.querySelector('.modal__createLibelle__btnAction__save');
+const manageLibelles__create = document.querySelector('.manageLibelles__create')
 const libelleName = document.querySelector('#newLibelle');
 const modal__renameLibelle = document.querySelector('.modal__renameLibelle');
 const modal__createLibelle = document.querySelector('.modal__createLibelle');
-const modal__renameLibelle__btnAction = document.querySelector('.modal__renameLibelle__btnAction');
+let modal__renameLibelle__btnAction = document.querySelector('.modal__renameLibelle__btnAction');
 const modal__deleteLibelle = document.querySelector('.modal__deleteLibelle');
 const modal__deleteLibelle__btnAction = document.querySelector('.modal__deleteLibelle__btnAction');
 const btnSaveContact = document.querySelector('.btnSaveContact');
@@ -37,7 +38,6 @@ function visibilityManageLibelles() {
     else{
         manageLibelles.style.display = "block"
     }
-    
 }
 
 
@@ -57,13 +57,7 @@ function showModalAddLibelles() {
     windowDark.style.display = "flex";
 }
 
-function showModalRenameLibelles(libelleId) {
-    windowDark.style.display = "flex";
-    modal__renameLibelle.style.display = "flex"
-    modal__renameLibelle__btnAction.addEventListener('click', function () {
-        renameLibellePart2(libelleId);
-    });
-}
+
 function showModalDeleteLibelle(libelleId) {
     windowDark.style.display = "flex";
     modal__deleteLibelle.style.display = "flex"
@@ -72,12 +66,14 @@ function showModalDeleteLibelle(libelleId) {
     });
 }
 
+
 function hiddenModalLibelles() {
     windowDark.style.display = "none";
     modal__createLibelle.style.display = 'none'
     modal__renameLibelle.style.display = "none"
     modal__deleteLibelle.style.display = "none"
 }
+
 
 function createElement(type, properties = {}) {
     const element = document.createElement(type);
@@ -149,7 +145,6 @@ function addLibellesHeaderLeft() {
 
 
 
-
 function addLibellesManageLibelles() {
     const manageLibelles__list = document.querySelector('.manageLibelles__list');
     
@@ -161,27 +156,46 @@ function addLibellesManageLibelles() {
     img.setAttribute('alt', "label-icon");
 
     divLibelle = document.createElement('div');
-    divLibelle.classList.add('manageLibelles__item','flex','alignItemCenter','cursorPointer');
+    divLibelle.classList.add('manageLibelles__item','flex','alignItemCenter','cursorPointer',tabLibelles.at(-1).libelleId);
     divLibelle.setAttribute('id', tabLibelles.at(-1).libelleId);
+
 
     divLibelle.append(img,span);
     manageLibelles__list.appendChild(divLibelle);
-
     
 }
 
 
+function showModalRenameLibelles(libelleId) {
+    windowDark.style.display = "flex";
+    modal__renameLibelle.style.display = "flex"
+
+    // Clone le bouton de validation pour supprimer les anciens écouteurs d'événements
+    const newButton = modal__renameLibelle__btnAction.cloneNode(true);
+    // Remplace l'ancien bouton par le nouveau
+    modal__renameLibelle__btnAction.parentNode.replaceChild(newButton, modal__renameLibelle__btnAction);
+    // Réinitialise la référence du bouton pour pointer vers le nouveau bouton
+    modal__renameLibelle__btnAction = newButton;
+
+    modal__renameLibelle__btnAction.addEventListener('click', function () {
+        renameLibellePart2(libelleId);
+    });
+}
+
 function renameLibellePart1(libelleId) {
     const libelleItem = document.getElementById(libelleId);
     const libelleOldName = libelleItem.querySelector('span');
-    const oldLibelle = document.getElementById('oldLibelle')
+    const oldLibelle = document.getElementById('oldLibelle');
     oldLibelle.value = libelleOldName.textContent;
-    showModalRenameLibelles(libelleId)
+    showModalRenameLibelles(libelleId);
 }
+
 
 function renameLibellePart2(libelleId) {
     const libelleItem = document.getElementById(libelleId);
+    const libelleManageItem = document.getElementsByClassName(libelleId);
     const libelleOldName = libelleItem.querySelector('span');
+    const libelleOldManage = libelleManageItem[0].querySelector('span');
     const newName = document.getElementById('oldLibelle');
 
     const indexRename =  tabLibelles.findIndex(function (libelle) {
@@ -190,17 +204,27 @@ function renameLibellePart2(libelleId) {
 
     tabLibelles[indexRename].libelleItemName = newName.value
     libelleOldName.textContent = newName.value
+    libelleOldManage.textContent = newName.value
 
     hiddenModalLibelles()  
 }
 
+function showModalDeleteLibelle(libelleId) {
+    windowDark.style.display = "flex";
+    modal__deleteLibelle.style.display = "flex";
+    modal__deleteLibelle__btnAction.addEventListener('click', function () {
+        deleteLibellePart2(libelleId);
+    });
+}
+
 function deleteLibellePart1(libelleId) {
-    const libelleItem = document.getElementById(libelleId);
     showModalDeleteLibelle(libelleId)
 }
 
 function deleteLibellePart2(libelleId) {
     const libelleItem = document.getElementById(libelleId);
+    const libelleManageItem = document.getElementsByClassName(libelleId);
+    libelleManageItem[0].remove()
     libelleItem.remove()
     hiddenModalLibelles()
 }
@@ -289,6 +313,7 @@ oneContact.addEventListener('click',OpenWindowsCreatContact);
 contactBtn.addEventListener('click',OpenWindowsListContact);
 btnPlusLibelles.addEventListener('click',showModalAddLibelles);
 saveLibelle.addEventListener('click',createLibelle);
+manageLibelles__create.addEventListener('click',showModalAddLibelles);
 for (let index = 0; index < btnNothingLibelles.length; index++) {
     btnNothingLibelles[index].addEventListener('click',hiddenModalLibelles);
 }
