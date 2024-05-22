@@ -150,6 +150,8 @@ function addLibellesManageLibelles() {
     
     const span = document.createElement('span');
     span.textContent = tabLibelles.at(-1).libelleItemName;
+    span.classList.add('manageLibelles__name');
+    
 
     const img = document.createElement('img');
     img.setAttribute('src','./assets/images/material-Icon/label-transparent-icon.svg');
@@ -238,21 +240,27 @@ function createContact() {
     const entreprise = document.getElementById('entreprise').value;
     const email = document.getElementById('email').value;
     const tel = document.getElementById('tel').value;
-    const contactItem = {conctactId, prenom, nom, entreprise, email, tel}
+    const libelleContact = document.getElementsByClassName('manageLibelles__name');
+    const tabLibelleContact = [];
+    for (let i = 0; i < libelleContact.length; i++) {
+        tabLibelleContact.push(libelleContact[i].textContent);
+    }
+    const contactItem = {conctactId, prenom, nom, entreprise, email, tel, tabLibelleContact}
     tabContact.push(contactItem);
 
 
 
-    const spanLibelle1 = document.createElement('span');
-    spanLibelle1.textContent = "Bureau";
-    spanLibelle1.className = 'main__content__libelles';
-
-    // const spanLibelle2 = document.createElement('span');
-    // spanLibelle2.textContent = "Bureau";
-    // spanLibelle2.className = 'main__content__libelles';
 
     const divLibelles = document.createElement('div');
     divLibelles.className = 'main__content__libellesContainer';
+
+    for (let j = 0; j < 2; j++) {
+        const spanLibelle = document.createElement('span');
+        spanLibelle.textContent = contactItem.tabLibelleContact[j];
+        spanLibelle.className = 'main__content__libelles';
+        
+        divLibelles.appendChild(spanLibelle);
+    }
 
     const spanItem1 = document.createElement('span');
     spanItem1.textContent = contactItem.email;
@@ -285,8 +293,7 @@ function createContact() {
     contact.id = contactItem.conctactId;
 
     
-    // divLibelles.append(spanLibelle1,spanLibelle2);
-    divLibelles.append(spanLibelle1);
+   
     divPresentation.append(divPicture,contactName);
     contact.append(divPresentation,spanItem1,spanItem2,spanItem3,divLibelles);
     Contacts.appendChild(contact);
