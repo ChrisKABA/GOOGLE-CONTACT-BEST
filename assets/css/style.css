@@ -505,7 +505,7 @@ body{
   z-index: 1;
 }
 
-.manageLibelles__create{
+.manageLibelles__create,.manageLibelles__addContact{
   padding: 15px 0px 10px 25px;
   margin-top: 10px;
 }
@@ -518,7 +518,15 @@ body{
   padding: 10px 10px 10px 25px;
 }
 
-.manageLibelles__item:hover,.manageLibelles__create:hover{
+.manageLibelles__item__detail{
+  width: 100%;
+}
+
+.manageLibelles__checkIcon{
+  color: darkblue;
+}
+
+.manageLibelles__item:hover,.manageLibelles__create:hover,.manageLibelles__addContact:hover{
   background-color: grey;
 }
 

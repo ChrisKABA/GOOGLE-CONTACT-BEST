@@ -16,10 +16,13 @@ let modal__renameLibelle__btnAction = document.querySelector('.modal__renameLibe
 const modal__deleteLibelle = document.querySelector('.modal__deleteLibelle');
 const modal__deleteLibelle__btnAction = document.querySelector('.modal__deleteLibelle__btnAction');
 const btnSaveContact = document.querySelector('.btnSaveContact');
-const header__top__logo__burger = document.querySelector('.header__top__logo__burger')
-const windowCreateContactLibelle = document.querySelector('.windowCreateContact__libelle')
+const header__top__logo__burger = document.querySelector('.header__top__logo__burger');
+const windowCreateContactLibelle = document.querySelector('.windowCreateContact__libelle');
 const tabContact = [] 
 const tabLibelles = [] 
+const manageLibelles__list = document.querySelector('.manageLibelles__list');
+
+
 
 function visibilityBtnCreateAction() {
     const creatAction = document.querySelector('.creatAction');
@@ -153,16 +156,26 @@ function addLibellesManageLibelles() {
     span.classList.add('manageLibelles__name');
     
 
+    const iconCheck = document.createElement('img');
+    iconCheck.setAttribute('src',"./assets/images/material-Icon/check-icon.svg");
+    iconCheck.setAttribute('alt', "check-icon");
+    iconCheck.classList.add("manageLibelles__checkIcon",'displayNone');
+
+
+    const divDetail = document.createElement('div');
+    divDetail.classList.add('manageLibelles__item__detail','flex','alignItemCenter','spaceBetween');
+
+
     const img = document.createElement('img');
     img.setAttribute('src','./assets/images/material-Icon/label-transparent-icon.svg');
     img.setAttribute('alt', "label-icon");
 
-    divLibelle = document.createElement('div');
-    divLibelle.classList.add('manageLibelles__item','flex','alignItemCenter','cursorPointer',tabLibelles.at(-1).libelleId);
-    divLibelle.setAttribute('id', tabLibelles.at(-1).libelleId);
+    const divLibelle = document.createElement('div');
+    divLibelle.classList.add('manageLibelles__item','flex','alignItemCenter','cursorPointer',tabLibelles.at(-1).libelleId,'a');
+    // divLibelle.setAttribute('id', tabLibelles.at(-1).libelleId);
 
-
-    divLibelle.append(img,span);
+    divDetail.append(span,iconCheck);
+    divLibelle.append(img,divDetail);
     manageLibelles__list.appendChild(divLibelle);
     
 }
@@ -229,6 +242,20 @@ function deleteLibellePart2(libelleId) {
     libelleManageItem[0].remove()
     libelleItem.remove()
     hiddenModalLibelles()
+}
+
+function selectLibelle() {
+    const manageLibelles__checkIcon = this.querySelector('.manageLibelles__checkIcon')
+    const manageLibelles__addContact = document.querySelector('.manageLibelles__addContact')
+    if (manageLibelles__checkIcon.style.display === 'block') {
+        manageLibelles__checkIcon.style.display = 'none';
+        manageLibelles__create.style.display = 'block';
+        manageLibelles__addContact.style.display = 'none';
+    }else{
+        manageLibelles__checkIcon.style.display = 'block';
+        manageLibelles__addContact.style.display = 'block';
+        manageLibelles__create.style.display = 'none';
+    }
 }
 
 function createContact() {
@@ -321,6 +348,7 @@ contactBtn.addEventListener('click',OpenWindowsListContact);
 btnPlusLibelles.addEventListener('click',showModalAddLibelles);
 saveLibelle.addEventListener('click',createLibelle);
 manageLibelles__create.addEventListener('click',showModalAddLibelles);
+
 for (let index = 0; index < btnNothingLibelles.length; index++) {
     btnNothingLibelles[index].addEventListener('click',hiddenModalLibelles);
 }
@@ -328,4 +356,9 @@ btnSaveContact.addEventListener('click',createContact);
 // header__top__logo__burger.addEventListener('click',openAndCloseMenu);
 
 
+manageLibelles__list.addEventListener('click', function(event) {
+    if (event.target.classList.contains('manageLibelles__item') || event.target.closest('.manageLibelles__item')) {
+        selectLibelle.call(event.target.closest('.manageLibelles__item'));
+    }
+});
 
