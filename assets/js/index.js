@@ -21,6 +21,7 @@ const windowCreateContactLibelle = document.querySelector('.windowCreateContact_
 const tabContact = [] 
 const tabLibelles = [] 
 const manageLibelles__list = document.querySelector('.manageLibelles__list');
+const manageLibelles__addContact = document.querySelector('.manageLibelles__addContact')
 
 
 
@@ -258,6 +259,10 @@ function selectLibelle() {
     }
 }
 
+function showlibelleContact() {
+    
+}
+
 function createContact() {
 
     const conctactId = crypto.randomUUID();
@@ -361,4 +366,4 @@ manageLibelles__list.addEventListener('click', function(event) {
         selectLibelle.call(event.target.closest('.manageLibelles__item'));
     }
 });
-
+manageLibelles__addContact.addEventListener('click',)
