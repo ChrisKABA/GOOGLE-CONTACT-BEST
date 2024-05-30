@@ -303,16 +303,13 @@ function createContact() {
     const entreprise = document.getElementById('entreprise').value;
     const email = document.getElementById('email').value;
     const tel = document.getElementById('tel').value;
-    const libelleContact = document.getElementsByClassName('manageLibelles__name');
+    const libelleContact = document.getElementsByClassName('windowCreateContact__libelles__item');
     const tabLibelleContact = [];
     for (let i = 0; i < libelleContact.length; i++) {
         tabLibelleContact.push(libelleContact[i].textContent);
     }
     const contactItem = {conctactId, prenom, nom, entreprise, email, tel, tabLibelleContact}
     tabContact.push(contactItem);
-
-
-
 
     const divLibelles = document.createElement('div');
     divLibelles.className = 'main__content__libellesContainer';
@@ -337,32 +334,25 @@ function createContact() {
     spanItem3.textContent = contactItem.entreprise;
     spanItem3.className = 'main__content__item__i';
 
-
     const contactName = document.createElement('span');
     contactName.textContent = contactItem.prenom + contactItem.nom;
-
 
     const divPicture = document.createElement('div');
     divPicture.className = 'main__content__item__picture';
     divPicture.textContent = "B";
 
-
     const divPresentation = document.createElement('div');
     divPresentation.classList.add('main__content__item__i','main__content__item__image')
-
 
     const contact = document.createElement('div');
     contact.className = 'main__content__item';
     contact.id = contactItem.conctactId;
-
-    
    
     divPresentation.append(divPicture,contactName);
     contact.append(divPresentation,spanItem1,spanItem2,spanItem3,divLibelles);
     Contacts.appendChild(contact);
 
     OpenWindowsListContact()
-
 }
 
 
