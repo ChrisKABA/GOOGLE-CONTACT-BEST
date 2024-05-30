@@ -17,7 +17,7 @@ const modal__deleteLibelle = document.querySelector('.modal__deleteLibelle');
 const modal__deleteLibelle__btnAction = document.querySelector('.modal__deleteLibelle__btnAction');
 const btnSaveContact = document.querySelector('.btnSaveContact');
 const header__top__logo__burger = document.querySelector('.header__top__logo__burger');
-const windowCreateContactLibelle = document.querySelector('.windowCreateContact__libelle');
+const windowCreateContactLibelle = document.querySelector('.windowCreateContact__addLibelle');
 const tabContact = [] 
 const tabLibelles = [] 
 const manageLibelles__list = document.querySelector('.manageLibelles__list');
@@ -247,20 +247,51 @@ function deleteLibellePart2(libelleId) {
 
 function selectLibelle() {
     const manageLibelles__checkIcon = this.querySelector('.manageLibelles__checkIcon')
-    const manageLibelles__addContact = document.querySelector('.manageLibelles__addContact')
+    const manageLibelles__checkIconALL = document.querySelectorAll('.manageLibelles__checkIcon')
     if (manageLibelles__checkIcon.style.display === 'block') {
-        manageLibelles__checkIcon.style.display = 'none';
-        manageLibelles__create.style.display = 'block';
-        manageLibelles__addContact.style.display = 'none';
+        manageLibelles__checkIcon.style.display = 'none'; 
     }else{
-        manageLibelles__checkIcon.style.display = 'block';
-        manageLibelles__addContact.style.display = 'block';
-        manageLibelles__create.style.display = 'none';
+        manageLibelles__checkIcon.style.display = 'block'; 
     }
+
+    for (let index = 0; index < manageLibelles__checkIconALL.length; index++) {
+        if (manageLibelles__checkIconALL[index].style.display === 'block') {
+            manageLibelles__addContact.style.display = 'block';
+            manageLibelles__create.style.display = 'none';
+            return
+        }; 
+    }
+    manageLibelles__addContact.style.display = 'none';
+    manageLibelles__create.style.display = 'block';
+
 }
 
-function showlibelleContact() {
-    
+{/* <span class="windowCreateContact__libelles__item">Bureau</span>
+<span class="windowCreateContact__libelles__item">Bureau</span> */}
+
+function addLibelleWindowCreateContact() {
+    const windowCreateContact__libelles__list = document.querySelector('.windowCreateContact__libelles__list');
+    const manageLibelles__checkIcon = document.querySelectorAll('.manageLibelles__checkIcon');
+    const manageLibelles = document.querySelector('.manageLibelles');
+    const windowCreateContact__libelles = document.querySelector('.windowCreateContact__libelles');
+
+    for (let index = 0; index < manageLibelles__checkIcon.length; index++) {
+        if (manageLibelles__checkIcon[index].style.display === 'block') {
+            manageLibellesItemDetail = manageLibelles__checkIcon[index].parentNode;
+            const nameLibelle = manageLibellesItemDetail.querySelector('span');
+
+            const spanLibelle = document.createElement('span');
+            spanLibelle.textContent = nameLibelle.textContent;
+            spanLibelle.classList.add('windowCreateContact__libelles__item');
+            windowCreateContact__libelles__list.appendChild(spanLibelle);
+        }
+    }
+    manageLibelles.style.display = 'none';
+    manageLibelles__addContact.style.display = 'none';
+    manageLibelles__create.style.display = 'block';
+    windowCreateContact__libelles.style.display ='flex';
+    windowCreateContactLibelle.style.display = 'none';
+
 }
 
 function createContact() {
@@ -357,7 +388,6 @@ manageLibelles__create.addEventListener('click',showModalAddLibelles);
 for (let index = 0; index < btnNothingLibelles.length; index++) {
     btnNothingLibelles[index].addEventListener('click',hiddenModalLibelles);
 }
-btnSaveContact.addEventListener('click',createContact);
 // header__top__logo__burger.addEventListener('click',openAndCloseMenu);
 
 
@@ -366,4 +396,5 @@ manageLibelles__list.addEventListener('click', function(event) {
         selectLibelle.call(event.target.closest('.manageLibelles__item'));
     }
 });
-manageLibelles__addContact.addEventListener('click',)
+manageLibelles__addContact.addEventListener('click',addLibelleWindowCreateContact);
+btnSaveContact.addEventListener('click',createContact);
