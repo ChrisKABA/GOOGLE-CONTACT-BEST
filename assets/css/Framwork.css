@@ -72,3 +72,7 @@
 .Allwindow-x{
     width: 100vw;
 }
+
+.fitContent{
+    width: fit-content;
+}
